@@ -23,7 +23,9 @@
   };
 
   // add grap plugin to jQuery
-  $.fn.grab = function (filename) {
-    return filetypeFunctions[getFileExtension(filename)]();
+  $.fn.grab = function (filename, successCallback, failCallback) {
+    var loadFile = filetypeFunctions[getFileExtension(filename)];
+    return loadFile().done(successCallback || $.noop())
+                     .fail(failCallback || $.noop());
   };
 })(jQuery);
