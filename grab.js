@@ -1,3 +1,11 @@
+/*
+  TODO:
+    * caching
+    * image loading
+    * bower support
+    * amd support (maybe)
+*/
+
 ;(function ($) {
   // load file
   var load = function (filename) {
