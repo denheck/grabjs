@@ -25,7 +25,7 @@
   // add grap plugin to jQuery
   $.fn.grab = function (filename, successCallback, failCallback) {
     var loadFile = filetypeFunctions[getFileExtension(filename)];
-    return loadFile().done(successCallback || $.noop())
-                     .fail(failCallback || $.noop());
+    return loadFile().done(successCallback || $.noop)
+                     .fail(failCallback || $.noop);
   };
 })(jQuery);
