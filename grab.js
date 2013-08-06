@@ -10,7 +10,7 @@
   // load file
   var load = function (filename) {
     return $.ajax({
-      url: pathToScript,
+      url: filename,
       dataType: 'script'
     });
   };
@@ -27,13 +27,14 @@
 
   // get file extension from filename
   var getFileExtension = function (filename) {
-    return filename.join('.').pop();
+    return filename.split('.').pop();
   };
 
   // add grap plugin to jQuery
-  $.fn.grab = function (filename, successCallback, failCallback) {
+  $.grab = function (filename, successCallback, failCallback) {
     var loadFile = filetypeFunctions[getFileExtension(filename)];
-    return loadFile().done(successCallback || $.noop)
-                     .fail(failCallback || $.noop);
+
+    return loadFile(filename).done(successCallback || $.noop)
+                             .fail(failCallback || $.noop);
   };
 })(jQuery);
