@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>grabjs tests</title>
+  <link rel="stylesheet" href="qunit-1.12.0.css">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="jquery-2.0.3.min.js"></script>
+  <script src="jquery.mockjax.js"></script>
+  <script src="qunit-1.12.0.js"></script>
+  <script src="../grab.js"></script>
+  <script type="text/javascript">
+    $.mockjax({
+      url: '/scripts/testfile.js',
+      dataType: 'script',
+      responseText: 'var example = function () { return "TEST"; }'
+    });
+
+    // test loading javascript file with success callback
+    asyncTest(
+      'assert success callback runs',
+      function () {
+        expect(1);
+
+        $.grab('/scripts/testfile.js', function () {
+          ok(example() === 'TEST', 'Failed to load ');
+          start();
+        });
+      }
+    );
+
+    // test loading javascript file with fail callback
+    asyncTest(
+      'assert fail callback runs',
+      function () {
+        expect(1);
+
+        $.grab(
+          '/scripts/nothing.js',
+          $.noop,
+          function () {
+            ok(example() === 'TEST', 'Failed to load ');
+            start();
+          }
+        );
+      }
+    );
+  </script>
+</body>
+</html>
